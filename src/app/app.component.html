@@ -1,0 +1,88 @@
+<h1>Accessible Modal Component</h1>
+
+<p>Welcome to the accessible modal testing page!</p>
+
+<button
+    class="button button-primary"
+    type="button"
+    (click)="show()"
+>
+    Show modal
+</button>
+
+<ng-template #modal>
+    <form [formGroup]="form" (ngSubmit)="submit()">
+        <div class="form-field">
+            <label for="firstName">First name</label>
+            <input
+                aria-describedby="firstName-error"
+                [attr.aria-invalid]="form.get('firstName').invalid"
+                autocomplete="off"
+                formControlName="firstName"
+                id="firstName"
+                type="text"
+            />
+            <span
+                id="firstName-error"
+                class="validation-error"
+                *ngIf="form.get('fisrtName')?.errors?.required"
+            >
+                First name is required
+            </span>
+        </div>
+
+        <div class="form-field">
+            <label for="surName">Surname</label>
+            <input
+                aria-describedby="surName-error"
+                [attr.aria-invalid]="form.get('surName').invalid"
+                autocomplete="off"
+                formControlName="surName"
+                id="surName"
+                type="text"
+            />
+            <span id="surName-error" class="validation-error" *ngIf="form.get('surName')?.errors?.required">
+                Surname is required
+            </span>
+        </div>
+
+        <div class="form-field">
+            <label for="age">Age</label>
+            <input
+                aria-describedby="age-error"
+                [attr.aria-invalid]="form.get('age').invalid"
+                autocomplete="off"
+                formControlName="age"
+                id="age"
+                type="text"
+            />
+            <span id="age-error" class="validation-error" *ngIf="form.get('age')?.errors?.required">
+                Age is required
+            </span>
+        </div>
+
+        <label for="info">Subscribe to news letter</label>
+            <input
+                formControlName="info"
+                id="info"
+                type="checkbox"
+            />
+
+        <div class="button-group">
+            <button
+                class="button button-primary"
+                type="submit"
+                [attr.aria-disabled]="form.invalid"
+            >
+                Submit
+            </button>
+            <button
+                class="button button-secondary"
+                type="button"
+                (click)="modalRef.close()"
+            >
+                Cancel
+            </button>
+        </div>
+    </form>
+</ng-template>

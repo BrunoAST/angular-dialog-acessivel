@@ -1,0 +1,23 @@
+<!-- Ao clicar no overlay o dialog será fechado -->
+<div
+    class="modal-overlay"
+    (click)="modalRef.close()"
+    (keydown.esc)="modalRef.close()"
+>
+    <!-- Ao clicar dentro do dialog, o evento de fechar não será propagado, deixando assim o dialog aberto -->
+    <!-- attr.aria-label -> para ser possível fazer o bind de aria label, é necessário adicionar o atributo na div -->
+    <div
+        appFocusTrap
+        appFocusBack
+        role="dialog"
+        aria-modal="true"
+        [attr.aria-label]="config.title"
+        class="modal-content"
+        (click)="$event.stopPropagation()"
+    >
+        <h1 class="modal-title">{{ config.title }}</h1>
+
+        <!-- Exibirá o conteúdo passado via TemplateRef -->
+        <ng-container *ngTemplateOutlet="config.templateRef"></ng-container>
+    </div>
+</div>
